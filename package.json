@@ -4,7 +4,8 @@
 	"version": "0.1.0",
 	"main": "index.js",
 	"files": [
-		"index.js"
+		"index.js",
+		"lib"
 	],
 	"keywords": [
 		"mplayer",
@@ -23,6 +24,8 @@
 		"node": ">=6"
 	},
 	"dependencies": {
+		"byline": "^5.0.0",
+		"shell-escape-tag": "^1.1.0"
 	},
 	"devDependencies": {
 		"tap-min": "^1.2.2",
