@@ -7,7 +7,7 @@ const createPlayer = require('.')
 
 const sampleC = path.join(__dirname, 'example', 'c-major.ogg')
 const sampleG = path.join(__dirname, 'example', 'g-major.ogg')
-const sampleF = path.join(__dirname, 'example', 'f-major.ogg')
+const sampleF = path.join(__dirname, 'example', `'f-major.ogg`)
 
 const isObj = o => o !== null && 'object' === typeof o && !Array.isArray(o)
 

@@ -1,7 +1,7 @@
 'use strict'
 
 const {EventEmitter} = require('events')
-const shellEscape = require('shell-escape-tag').default.escape
+const escape = require('js-string-escape')
 const {spawn} = require('child_process')
 const byLine = require('byline')
 const debug = require('debug')('mplayer-wrapper')
@@ -23,7 +23,8 @@ const createPlayer = () => {
 
 	// wrapper -> mplayer
 	const exec = (cmd, args = []) => {
-		const str = shellEscape(cmd, args)
+		let str = escape(cmd)
+		for (let arg of args) str += ' ' + escape(arg)
 		debug('exec: ' + str)
 		proc.stdin.write(str + '\n')
 	}
