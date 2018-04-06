@@ -32,6 +32,17 @@ const createPlayer = () => {
 		for (let prop of props) exec('get_property', [prop])
 	}
 
+	const play = (fileOrUrl) => exec('loadfile', [fileOrUrl])
+	const queue = (fileOrUrl) => exec('loadfile', [fileOrUrl, '1'])
+	const next = () => exec('pt_step', ['1'])
+	const previous = () => exec('pt_step', ['-1'])
+	const playPause = () => exec('pause')
+	const seek = (pos) => exec('seek', [pos, '0'])
+	const seekPercent = (pos) => exec('seek', [pos, '1'])
+	const setVolume = (amount) => exec('volume', [amount, '1'])
+	const stop = () => exec('stop')
+	const close = () => exec('quit')
+
 	// mplayer -> wrapper
 	const onLine = (line) => {
 		if (line === 'ANS_NEW_TRACK') return out.emit('track-change')
@@ -55,6 +66,16 @@ const createPlayer = () => {
 
 	out.exec = exec
 	out.getProps = getProps
+	out.seek = seek
+	out.play = play
+	out.queue = queue
+	out.next = next
+	out.previous = previous
+	out.seekPercent = seekPercent
+	out.playPause = playPause
+	out.setVolume = setVolume
+	out.stop = stop
+	out.close = close
 	return out
 }
 
