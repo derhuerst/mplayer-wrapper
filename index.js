@@ -53,7 +53,7 @@ const createPlayer = () => {
 
 	// mplayer -> wrapper
 	const onLine = (line) => {
-		if (line.slice(0, 8) === 'Playing ') return out.emit('track-change')
+		if (line === 'Starting playback...') return out.emit('track-change')
 
 		const parts = /^ANS_([\w]+)\=/g.exec(line)
 		if (!parts || !parts[1]) return null
