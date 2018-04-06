@@ -4,6 +4,7 @@ const {EventEmitter} = require('events')
 const shellEscape = require('shell-escape-tag').default.escape
 const {spawn} = require('child_process')
 const byLine = require('byline')
+const debug = require('debug')('mplayer-wrapper')
 
 const parsers = require('./lib/parsers')
 
@@ -23,6 +24,7 @@ const createPlayer = () => {
 	// wrapper -> mplayer
 	const exec = (cmd, args = []) => {
 		const str = shellEscape(cmd, args)
+		debug('exec: ' + str)
 		proc.stdin.write(str + '\n')
 	}
 	const getProps = (props) => {
@@ -53,6 +55,7 @@ const createPlayer = () => {
 
 	// mplayer -> wrapper
 	const onLine = (line) => {
+		debug('line: ' + line)
 		if (line === 'Starting playback...') return out.emit('track-change')
 
 		const parts = /^ANS_([\w]+)\=/g.exec(line)
