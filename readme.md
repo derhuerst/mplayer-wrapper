@@ -1,6 +1,6 @@
 # mplayer-wrapper
 
-**Let an [mplayer](http://www.mplayerhq.hu/) instance play media and control it.**
+**Let an [mplayer](http://www.mplayerhq.hu/) instance play media.**
 
 [![npm version](https://img.shields.io/npm/v/mplayer-wrapper.svg)](https://www.npmjs.com/package/mplayer-wrapper)
 [![build status](https://api.travis-ci.org/derhuerst/mplayer-wrapper.svg?branch=master)](https://travis-ci.org/derhuerst/mplayer-wrapper)
@@ -57,9 +57,9 @@ player.on('track-change', () => player.getProps(['metadata']))
 
 ### Events
 
-- `prop(<name>, <value>)`: The value for a prop has been requested (e.g. using `getProps`), and we now know the value.
-- `<propName>(<value>)`: A shorthand for the `prop` event.
-- `track-change`: A new track/file is playing now.
+- `feed.on('prop', name, val)`: The value for a prop has been requested (e.g. using `getProps`), and we now know the value.
+- `feed.on(propName, val)`: A shorthand for the `prop` event.
+- `feed.on('track-change')`: A new track/file is playing now.
 
 
 ## Contributing

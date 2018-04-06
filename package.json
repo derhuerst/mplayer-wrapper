@@ -1,6 +1,6 @@
 {
 	"name": "mplayer-wrapper",
-	"description": "Let an mplayer instance play media and control it.",
+	"description": "Let an mplayer instance play media.",
 	"version": "0.1.0",
 	"main": "index.js",
 	"files": [

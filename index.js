@@ -38,7 +38,18 @@ const createPlayer = () => {
 	const seekPercent = (pos) => exec('seek', [pos, '1'])
 	const setVolume = (amount) => exec('volume', [amount, '1'])
 	const stop = () => exec('stop')
-	const close = () => exec('quit')
+
+	let closed = false
+	proc.on('close', (code) => {
+		closed = true
+		out.emit('close', code)
+		if (code > 0) {
+			// todo: emit err from proc.stderr
+		}
+	})
+	const close = () => {
+		if (!closed) exec('quit')
+	}
 
 	// mplayer -> wrapper
 	const onLine = (line) => {
