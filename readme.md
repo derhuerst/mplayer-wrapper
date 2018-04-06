@@ -19,8 +19,47 @@ npm install mplayer-wrapper
 ## Usage
 
 ```js
-todo
+const createPlayer = require('mplayer-wrapper')
+
+const player = createPlayer()
+player.queue('path/to/audio-1.mp3')
+player.queue('path/to/audio-2.ogg')
+player.queue('http://example.org/audio-3.ogg')
+
+player.on('time_pos', (val) => {
+	console.log('track progress is', val)
+})
+setInterval(() => {
+	player.getProps(['time_pos'])
+}, 2 * 1000)
+
+player.on('metadata', console.log)
+player.on('track-change', () => player.getProps(['metadata']))
 ```
+
+
+## API
+
+### Methods
+
+- `player.exec(command, args = [])`: Send a command to mplayer. See [the list](http://www.mplayerhq.hu/DOCS/tech/slave.txt).
+- `player.getProps(props)`: Request values for one or more props. Run `mplayer -list-properties` for a list.
+- `player.play(fileOrUrl)`: Discard the current queue, play this file.
+- `player.queue(fileOrUrl)`: Add this file to the queue.
+- `player.next()`: Jump to the next file in the queue.
+- `player.previous()`: Jump to the previous file in the queue.
+- `player.playPause()`: Toggle pause.
+- `player.seek(pos)`: Seek to a position in seconds. Prepend `+`/`-` for relative seeking.
+- `player.seekPercent(pos)`: Seek to a position in percent of the file. E.g. `30`.
+- `player.setVolume(amount)`: Set the volume. `0` is silent, `100` is maximum.
+- `player.stop`: Stop playing.
+- `player.close`: Stop playing, close the mplayer instance.
+
+### Events
+
+- `prop(<name>, <value>)`: The value for a prop has been requested (e.g. using `getProps`), and we now know the value.
+- `<propName>(<value>)`: A shorthand for the `prop` event.
+- `track-change`: A new track/file is playing now.
 
 
 ## Contributing
