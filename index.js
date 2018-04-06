@@ -7,8 +7,6 @@ const byLine = require('byline')
 
 const parsers = require('./lib/parsers')
 
-const validPropLine = /^ANS_([\w]+)\=/g
-
 const createPlayer = () => {
 	const out = new EventEmitter()
 
@@ -16,15 +14,14 @@ const createPlayer = () => {
 		'-slave', // 😔
 		'-idle',
 		'-quiet',
-		'-msglevel', 'all=1:global=4:cplayer=4',
-		'-playing-msg', 'ANS_NEW_TRACK\\n'
+		'-msglevel', 'all=1:global=4:cplayer=4'
 	], {
 		env: process.env,
 		stdio: ['pipe', 'pipe', 'ignore']
 	})
 
 	// wrapper -> mplayer
-	const exec = (cmd, args) => {
+	const exec = (cmd, args = []) => {
 		const str = shellEscape(cmd, args)
 		proc.stdin.write(str + '\n')
 	}
@@ -45,9 +42,9 @@ const createPlayer = () => {
 
 	// mplayer -> wrapper
 	const onLine = (line) => {
-		if (line === 'ANS_NEW_TRACK') return out.emit('track-change')
+		if (line.slice(0, 8) === 'Playing ') return out.emit('track-change')
 
-		const parts = validPropLine.exec(line)
+		const parts = /^ANS_([\w]+)\=/g.exec(line)
 		if (!parts || !parts[1]) return null
 		const prop = parts[1]
 
