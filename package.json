@@ -1,0 +1,35 @@
+{
+	"name": "mplayer-wrapper",
+	"description": "Let an mplayer instance play media and control it.",
+	"version": "0.1.0",
+	"main": "index.js",
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"mplayer",
+		"mpv",
+		"media",
+		"player",
+		"audio",
+		"video"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/mplayer-wrapper",
+	"repository": "derhuerst/mplayer-wrapper",
+	"bugs": "https://github.com/derhuerst/mplayer-wrapper/issues",
+	"license": "ISC",
+	"engines": {
+		"node": ">=6"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"tap-min": "^1.2.2",
+		"tape": "^4.8.0"
+	},
+	"scripts": {
+		"test": "env NODE_ENV=dev node test.js | tap-min",
+		"prepublishOnly": "npm test"
+	}
+}
