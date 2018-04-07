@@ -23,13 +23,18 @@ const createPlayer = () => {
 
 	// wrapper -> mplayer
 	const exec = (cmd, args = []) => {
-		let str = escape(cmd)
-		for (let arg of args) str += ' ' + escape(arg)
+		let str = cmd
+		for (let arg of args) {
+			str += ' '
+			if (arg.includes(' ')) str += `'`
+			str += escape(arg)
+			if (arg.includes(' ')) str += `'`
+		}
 		debug('exec: ' + str)
 		proc.stdin.write(str + '\n')
 	}
 	const getProps = (props) => {
-		for (let prop of props) exec('get_property', [prop])
+		for (let prop of props) exec('pausing_keep_force get_property', [prop])
 	}
 
 	const play = (fileOrUrl) => exec('loadfile', [fileOrUrl])
@@ -37,9 +42,9 @@ const createPlayer = () => {
 	const next = () => exec('pt_step', ['1'])
 	const previous = () => exec('pt_step', ['-1'])
 	const playPause = () => exec('pause')
-	const seek = (pos) => exec('seek', [pos, '0'])
-	const seekPercent = (pos) => exec('seek', [pos, '1'])
-	const setVolume = (amount) => exec('volume', [amount, '1'])
+	const seek = (pos) => exec('pausing_keep seek', [pos, '0'])
+	const seekPercent = (pos) => exec('pausing_keep seek', [pos, '1'])
+	const setVolume = (amount) => exec('pausing_keep volume', [amount, '1'])
 	const stop = () => exec('stop')
 
 	let closed = false
