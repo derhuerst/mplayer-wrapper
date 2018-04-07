@@ -26,9 +26,11 @@ const createPlayer = () => {
 		let str = cmd
 		for (let arg of args) {
 			str += ' '
-			if (arg.includes(' ')) str += `'`
-			str += escape(arg)
-			if (arg.includes(' ')) str += `'`
+			if ('string' === typeof arg) {
+				if (arg.includes(' ')) str += `'`
+				str += escape(arg)
+				if (arg.includes(' ')) str += `'`
+			} else str += arg
 		}
 		debug('exec: ' + str)
 		proc.stdin.write(str + '\n')
