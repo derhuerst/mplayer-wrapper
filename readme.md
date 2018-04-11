@@ -1,6 +1,8 @@
 # mplayer-wrapper
 
-**Let an [mplayer](http://www.mplayerhq.hu/) instance play media.**
+**Let an [`mplayer`](http://www.mplayerhq.hu/) instance play media.**
+
+*Note*: `mpv` is a fork of `mplayer` and much nicer to work with. You might want to use [`mpv-wrapper`](https://github.com/derhuerst/mpv-wrapper) instead.
 
 [![npm version](https://img.shields.io/npm/v/mplayer-wrapper.svg)](https://www.npmjs.com/package/mplayer-wrapper)
 [![build status](https://api.travis-ci.org/derhuerst/mplayer-wrapper.svg?branch=master)](https://travis-ci.org/derhuerst/mplayer-wrapper)
@@ -60,6 +62,11 @@ player.on('track-change', () => player.getProps(['metadata']))
 - `feed.on('prop', name, val)`: The value for a prop has been requested (e.g. using `getProps`), and we now know the value.
 - `feed.on(propName, val)`: A shorthand for the `prop` event.
 - `feed.on('track-change')`: A new track/file is playing now.
+
+
+## Related
+
+- [`mpv-wrapper`](https://github.com/derhuerst/mpv-wrapper) – Let an `mpv` instance play media.
 
 
 ## Contributing

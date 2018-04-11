@@ -65,6 +65,7 @@ const createPlayer = () => {
 	const onLine = (line) => {
 		debug('line: ' + line)
 		if (line === 'Starting playback...') return out.emit('track-change')
+		// todo: `ANS_ERROR=PROPERTY_UNAVAILABLE`
 
 		const parts = /^ANS_([\w]+)\=/g.exec(line)
 		if (!parts || !parts[1]) return null
