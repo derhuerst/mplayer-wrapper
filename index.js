@@ -12,7 +12,7 @@ const createPlayer = () => {
 	const out = new EventEmitter()
 
 	const proc = spawn('mplayer', [
-		'-slave', // ??
+		'-slave', // 😔
 		'-idle',
 		'-quiet',
 		'-msglevel', 'all=1:global=4:cplayer=4'
