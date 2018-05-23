@@ -65,6 +65,9 @@ const createPlayer = () => {
 	const onLine = (line) => {
 		debug('line: ' + line)
 		if (line === 'Starting playback...') return out.emit('track-change')
+		
+		//Callback when playlist finishes
+		if (line === "ANS_ERROR=PROPERTY_UNAVAILABLE") return out.emit('playlist-finish')
 		// todo: `ANS_ERROR=PROPERTY_UNAVAILABLE`
 
 		const parts = /^ANS_([\w]+)\=/g.exec(line)
