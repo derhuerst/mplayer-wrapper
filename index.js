@@ -1,8 +1,8 @@
 'use strict'
 
-const { EventEmitter } = require('events')
+const {EventEmitter} = require('events')
 const escape = require('js-string-escape')
-const { spawn } = require('child_process')
+const {spawn} = require('child_process')
 const byLine = require('byline')
 const debug = require('debug')('mplayer-wrapper')
 
@@ -12,14 +12,14 @@ const createPlayer = () => {
 	const out = new EventEmitter()
 
 	const proc = spawn('mplayer', [
-		'-slave', // 😔
+		'-slave', // ??
 		'-idle',
 		'-quiet',
 		'-msglevel', 'all=1:global=4:cplayer=4'
 	], {
-			env: process.env,
-			stdio: ['pipe', 'pipe', 'ignore']
-		})
+		env: process.env,
+		stdio: ['pipe', 'pipe', 'ignore']
+	})
 
 	// wrapper -> mplayer
 	const exec = (cmd, args = []) => {
@@ -65,11 +65,8 @@ const createPlayer = () => {
 	const onLine = (line) => {
 		debug('line: ' + line)
 		if (line === 'Starting playback...') return out.emit('track-change')
-
 		//Callback when playlist finishes
-		if (line === "ANS_ERROR=PROPERTY_UNAVAILABLE") {
-			return out.emit('playlist-finished')
-		}
+		if (line === "ANS_ERROR=PROPERTY_UNAVAILABLE") return out.emit('playlist-finish')
 		// todo: `ANS_ERROR=PROPERTY_UNAVAILABLE`
 
 		const parts = /^ANS_([\w]+)\=/g.exec(line)
@@ -84,10 +81,10 @@ const createPlayer = () => {
 	}
 
 	proc.stdout
-		.pipe(byLine.createStream())
-		.on('data', (line) => {
-			onLine(Buffer.isBuffer(line) ? line.toString() : line)
-		})
+	.pipe(byLine.createStream())
+	.on('data', (line) => {
+		onLine(Buffer.isBuffer(line) ? line.toString() : line)
+	})
 
 	out.exec = exec
 	out.getProps = getProps
