@@ -16,13 +16,19 @@ player.on('prop', (prop, val) => {
 	console.log(prop, 'is', val)
 })
 
-setInterval(() => {
+const timePosInterval = setInterval(() => {
 	player.getProps(['time_pos'])
 }, 5 * 1000)
 
 player.on('track-change', () => {
 	player.getProps([
+		'metadata',
 		'length',
-		// 'metadata'
+		'time_pos',
 	])
+})
+
+player.once('playlist-finish', () => {
+	clearInterval(timePosInterval)
+	player.close()
 })
