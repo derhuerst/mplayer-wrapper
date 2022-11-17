@@ -1,7 +1,7 @@
 {
 	"name": "mplayer-wrapper",
 	"description": "Let an mplayer instance play media.",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"main": "index.js",
 	"files": [
 		"index.js",
@@ -20,7 +20,7 @@
 	"bugs": "https://github.com/derhuerst/mplayer-wrapper/issues",
 	"license": "ISC",
 	"engines": {
-		"node": ">=6"
+		"node": ">=18"
 	},
 	"dependencies": {
 		"byline": "^5.0.0",
@@ -28,9 +28,9 @@
 		"js-string-escape": "^1.0.1"
 	},
 	"devDependencies": {
-		"eslint": "^7.32.0",
-		"tap-min": "^1.2.2",
-		"tape": "^4.8.0"
+		"eslint": "^8.27.0",
+		"tap-min": "^2.0.0",
+		"tape": "^5.6.1"
 	},
 	"scripts": {
 		"lint": "eslint .",
