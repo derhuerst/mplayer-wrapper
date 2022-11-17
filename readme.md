@@ -7,8 +7,8 @@
 [![npm version](https://img.shields.io/npm/v/mplayer-wrapper.svg)](https://www.npmjs.com/package/mplayer-wrapper)
 [![build status](https://api.travis-ci.org/derhuerst/mplayer-wrapper.svg?branch=master)](https://travis-ci.org/derhuerst/mplayer-wrapper)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/mplayer-wrapper.svg)
-[![chat with me on Gitter](https://img.shields.io/badge/chat%20with%20me-on%20gitter-512e92.svg)](https://gitter.im/derhuerst)
-[![support me on Patreon](https://img.shields.io/badge/support%20me-on%20patreon-fa7664.svg)](https://patreon.com/derhuerst)
+[![support me via GitHub Sponsors](https://img.shields.io/badge/support%20me-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
+[![chat with me on Twitter](https://img.shields.io/badge/chat%20with%20me-on%20Twitter-1da1f2.svg)](https://twitter.com/derhuerst)
 
 
 ## Installing
@@ -62,6 +62,11 @@ player.on('track-change', () => player.getProps(['metadata']))
 - `feed.on('prop', name, val)`: The value for a prop has been requested (e.g. using `getProps`), and we now know the value.
 - `feed.on(propName, val)`: A shorthand for the `prop` event.
 - `feed.on('track-change')`: A new track/file is playing now.
+
+
+## Known Issues
+
+- `mplayer` doesn't print metadata properly (e.g. Unicode, `,` and other special characters), therefore `mplayer-wrapper` doesn't expose it properly.
 
 
 ## Related
