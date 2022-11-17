@@ -8,15 +8,20 @@ const debug = require('debug')('mplayer-wrapper')
 
 const parsers = require('./lib/parsers')
 
+const AUDIO_OUTPUT_DRIVER = process.env.MPLAYER_AUDIO_OUTPUT_DRIVER || null
+
 const createPlayer = () => {
 	const out = new EventEmitter()
 
-	const proc = spawn('mplayer', [
+	const args = [
 		'-slave', // 😔
+		...(AUDIO_OUTPUT_DRIVER ? ['-ao', AUDIO_OUTPUT_DRIVER] : []),
 		'-idle',
 		'-quiet',
 		'-msglevel', 'all=1:global=4:cplayer=4'
-	], {
+	]
+	debug('spawning mplayer with', args)
+	const proc = spawn('mplayer', args, {
 		env: process.env,
 		stdio: ['pipe', 'pipe', 'ignore']
 	})
