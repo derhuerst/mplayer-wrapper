@@ -24,8 +24,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
 
-    - run: npm run lint
+    - name: install jackd & mplayer
+      run: sudo apt install -y jackd mplayer
+    - name: test
+      run: |
+        # set up virtual audio device
+        sudo jackd -rd dummy &
+        sleep 2
+        export MPLAYER_AUDIO_OUTPUT_DRIVER=jack
 
-    - name: install mplayer
-      run: sudo apt install -y mplayer
-    - run: npm test
+        env DEBUG=mplayer-wrapper npm test
