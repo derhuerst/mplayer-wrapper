@@ -24,6 +24,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
 
+    - run: npm run lint
+
     - name: install jackd & mplayer
       run: sudo apt install -y jackd mplayer
     - name: test
